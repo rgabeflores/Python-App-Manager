@@ -40,7 +40,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="$(if [ "$OSTYPE" "==" "cygwin" ]; then cygpath -u 'D:\Users\Gabriel\Libraries\Desktop\Projects\Python\Python-App-Manager\Python-App-Manager\env'; else echo '/D/Users/Gabriel/Libraries/Desktop/Projects/Python/Python-App-Manager/Python-App-Manager/env'; fi;)"
+VIRTUAL_ENV="$(if [ "$OSTYPE" "==" "cygwin" ]; then cygpath -u 'D:\Users\Gabriel\Libraries\Desktop\Projects\Python\Python-App-Manager\Python-App-Manager\.gitignore\env'; else echo '/D/Users/Gabriel/Libraries/Desktop/Projects/Python/Python-App-Manager/Python-App-Manager/.gitignore/env'; fi;)"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
