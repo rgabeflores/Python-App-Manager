@@ -1,5 +1,8 @@
 
 class ProjectBuilder:
+    '''
+        Object model for building a Python script boilerplate
+    '''
 
     def __init__(self, lines, *args, **kwargs):
         self.lines = list(lines)
@@ -21,10 +24,10 @@ class ProjectBuilder:
             pass
 
     def __str__(self):
-        pass
+        return ''.join(self.lines)
 
     def __repr__(self):
-        pass
+        return ''.join(self.lines)
 
 
 def main():
