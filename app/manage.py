@@ -1,5 +1,8 @@
 import sys
 import os
+from builder import ProjectBuilder
+
+import logging
 
 '''
     Generates a boiler plate for new Python projects.
@@ -13,10 +16,19 @@ import os
     -d      Start with debug mode on
 '''
 
+logging.basicConfig(level=logging.DEBUG)
+# logging.disable(logging.DEBUG)
+
 
 class UsageException(Exception):
+    '''Exception raised for incorrect command line usage.
 
-    def __init__(self, expression, message, *args, **kwargs):
+    Attributes:
+        expression -- input expression
+        message -- explanation of usage
+    '''
+
+    def __init__(self, expression, message=None, *args, **kwargs):
         super().__init__(args, kwargs)
         self.expression = expression
         self.message = '''
@@ -37,8 +49,10 @@ class UsageException(Exception):
 
 
 def construct(path='.', name='base', *args):
+
     try:
-        with open('./templates/base.py') as f:
+        logging.debug(os.path.dirname(__file__))
+        with open('{}/boilerplate/base.py'.format(os.path.dirname(__file__))) as f:
             base = f.readlines()
     except FileNotFoundError as e:
         print('The base file is misplaced or missing.')
@@ -46,8 +60,7 @@ def construct(path='.', name='base', *args):
         print(e)
     else:
         # FILE CREATION
-        # Conditions reserved to add/remove/edit file lines
-        # based on command line args
+        # Conditions reserved to add/remove/edit file lines based on command line args
         if '-v' in args:
             pass
         if '-w' in args:
@@ -57,25 +70,25 @@ def construct(path='.', name='base', *args):
 
         try:
             with open('{}/{}.py'.format(path, name), 'w') as f:
-                f.write(base)
+                f.write(''.join(base))
         except Exception as e:
             print(e, '\nSomething went wrong while creating the boiter plate.\n')
 
-    sys.exit()
+    # sys.exit()
 
 
-def construct_test(path='.', name='test_base', *args):
+def construct_test(path='.', name='base', *args):
     try:
-        with open('./templates/test_base.py') as f:
+        logging.debug(os.path.dirname(__file__))
+        with open('{}/boilerplate/test_base.py'.format(os.path.dirname(__file__))) as f:
             test_base = f.read()
     except FileNotFoundError as e:
-        print('The base file is misplaced or missing.')
+        print('The test_base file is misplaced or missing.')
     except Exception as e:
         print(e)
     else:
         # FILE CREATION
-        # Conditions reserved to add/remove/edit file lines
-        # based on command line args
+        # Conditions reserved to add/remove/edit file lines based on command line args
         if '-v' in args:
             pass
         if '-w' in args:
@@ -85,20 +98,22 @@ def construct_test(path='.', name='test_base', *args):
 
         try:
             with open('{}/test_{}.py'.format(path, name), 'w') as f:
-                f.write(base)
+                f.write(''.join(test_base))
         except Exception as e:
             print(e, '\nSomething went wrong while creating the boiter plate.\n')
 
-    sys.exit()
+    # sys.exit()
 
 
 def main(args):
-    if args:
-        project_name = args[0]
-
+    try:
+        project_name = args[1]
+    except IndexError:
+        raise UsageException(''.join(args))
     else:
-        usage()
+        construct(path='D:/Users/Gabriel/Libraries/Desktop/Projects/Python/Python-App-Manager/Python-App-Manager/test', name=project_name)
+        construct_test(path='D:/Users/Gabriel/Libraries/Desktop/Projects/Python/Python-App-Manager/Python-App-Manager/test', name=project_name)
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main(sys.argv)
