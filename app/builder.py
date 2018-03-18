@@ -1,11 +1,18 @@
 
 class ProjectBuilder:
-    '''
-        Object model for building a Python script boilerplate
+    '''Object model for building a Python script boilerplate
+
+    Attributes:
+        lines -- the starting template code for the base file
     '''
 
-    def __init__(self, lines, *args, **kwargs):
+    def __init__(self, name, lines, *args, **kwargs):
+        self.name = name
         self.lines = list(lines)
+
+    @property
+    def name():
+        return self.name
 
     @property
     def lines():
@@ -18,7 +25,7 @@ class ProjectBuilder:
         return self.lines[i]
 
     def __setitem__(self, i, line):
-        if isinstance(line, str):
+        if isinstance(line, str) and i < len(self):
             self.lines[i] = line
         else:
             pass
