@@ -2,6 +2,7 @@ import sys
 import os
 from usage import UsageException
 from builder import ProjectBuilder
+from contextlib import contextmanager
 
 import logging
 
@@ -12,13 +13,24 @@ import logging
     python manage.py <options> <projectname>
 
     Options:
-    -v      Create project with a virtualenv (must have virtualenv installed)
     -w      Create project with static Website Files
     -d      Start with debug mode on
 '''
 
 logging.basicConfig(level=logging.DEBUG)
 # logging.disable(logging.DEBUG)
+
+
+@contextmanager
+def enter_dir(path):
+    os.chdir(path)
+    yield
+    os.chdir('..')
+
+
+'''
+    Constructs a simple Python module.
+'''
 
 
 def construct(path='.', name='base', *args):
@@ -34,6 +46,7 @@ def construct(path='.', name='base', *args):
     else:
         # FILE CREATION
         # Conditions reserved to add/remove/edit file lines based on command line args
+
         if '-v' in args:
             pass
         if '-w' in args:
@@ -48,6 +61,11 @@ def construct(path='.', name='base', *args):
             print(e, '\nSomething went wrong while creating the boiter plate.\n')
 
     # sys.exit()
+
+
+'''
+    Creates a simple Python module for unit testing.
+'''
 
 
 def construct_test(path='.', name='base', *args):
@@ -65,7 +83,7 @@ def construct_test(path='.', name='base', *args):
         if '-v' in args:
             pass
         if '-w' in args:
-            pass
+            web_construct(path)
         if '-d' in args:
             pass
 
@@ -76,6 +94,35 @@ def construct_test(path='.', name='base', *args):
             print(e, '\nSomething went wrong while creating the boiter plate.\n')
 
     # sys.exit()
+
+
+'''
+    Creates a simple front-end web project
+'''
+
+
+def web_construct(path):
+
+    # Creates the base HTML
+    with open('./templates/base.html') as f:
+        content = f.readlines()
+    with open(f'{path}/templates/base.html', 'w') as f:
+        for line in content:
+            f.write(line)
+
+    # Creates a CSS file
+    with open('./css/style.css') as f:
+        content = f.readlines()
+    with open(f'{path}/css/style.css', 'w') as f:
+        for line in content:
+            f.write(line)
+
+    # Creates a JavaScript file
+    with open('./js/script.js') as f:
+        content = f.readlines()
+    with open(f'{path}/js/script.js', 'w') as f:
+        for line in content:
+            f.write(line)
 
 
 def main(args):
@@ -91,8 +138,8 @@ def main(args):
         author = input("Author: ")
         description = input("Description: ")
         '''
-        construct(path='D:/Users/Gabriel/Libraries/Desktop/Projects/Python/Python-App-Manager/Python-App-Manager/test', name=project_name)
-        construct_test(path='D:/Users/Gabriel/Libraries/Desktop/Projects/Python/Python-App-Manager/Python-App-Manager/test', name=project_name)
+        construct(path='../test', name=project_name)
+        construct_test(path='../test', name=project_name)
 
 
 if __name__ == '__main__':
