@@ -5,7 +5,7 @@ A program to easily generate development-ready boilerplates. Immediately begin d
 
 __Basic Execution__
 
-    `python app/manage.py`
+    python app/manage.py
 
 ## Authors
 
