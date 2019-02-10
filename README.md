@@ -1,5 +1,5 @@
 # Python App Manager
-A program to easily generate development-ready boilerplates. Immediately being Python projects, front-end web projects, and more!
+A program to easily generate development-ready boilerplates. Immediately begin development on Python projects, front-end web projects, and more, by automating the creation of folder structures and base file templates.
 
 ## Authors
 
