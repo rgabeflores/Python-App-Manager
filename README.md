@@ -11,4 +11,4 @@ __Basic Execution__
 
 ## Authors
 
-* [Gabriel Flores](https://github.com/rgabeflores)
+* [Gabriel Flores](https://www.linkedin.com/in/rgabrielflores/)
